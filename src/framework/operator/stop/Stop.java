@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package framework.operator.stop;
 
 /**
  *
- * @author jesimar
+ * @author Jesimar da Silva Arantes
  */
 public class Stop {
     
@@ -29,14 +23,16 @@ public class Stop {
     public boolean end(){
         if (typeStop == TypeStop.NUMBER_GENERATION){
             return endGeneration();
-        }else if (typeStop == TypeStop.NUMBER_EVALUATION){
+        } else if (typeStop == TypeStop.NUMBER_EVALUATION){
             return endEvaluations();
-        }else if (typeStop == TypeStop.TIME){
-            return endTime();
-        }else if (typeStop == TypeStop.CONVERGENCE){
-            return endConvergence();
-        }else if (typeStop == TypeStop.FOREVER){
+        } else if (typeStop == TypeStop.ELAPSED_TIME){
+            return endElapsedTime();
+        } else if (typeStop == TypeStop.FOREVER){
             return endForever();
+        } else if (typeStop == TypeStop.CONVERGENCE){
+            return endConvergence();
+        } else if (typeStop == TypeStop.STAGNATION_IN_EVOLUTION){
+            return endStagnationInEvolution();
         }
         return false;
     }
@@ -58,13 +54,17 @@ public class Stop {
         }
     }
     
-    private boolean endTime(){
-        double timePassed = (System.currentTimeMillis() - timeInitial)/1000.0;
-        if (timePassed < time){
+    private boolean endElapsedTime(){
+        double elapsedTime = (System.currentTimeMillis() - timeInitial)/1000.0;
+        if (elapsedTime < time){
             return false;
         }else{
             return true;
         }
+    }
+    
+    private boolean endForever(){
+        return true;
     }
     
     //Não esta funcionando ainda
@@ -72,7 +72,8 @@ public class Stop {
         return true;
     }
     
-    private boolean endForever(){
+    //Não esta funcionando ainda
+    private boolean endStagnationInEvolution(){
         return true;
     }
 
@@ -84,6 +85,7 @@ public class Stop {
         this.numberEvaluation = numberEvaluation;
     }
 
+    //time em segundos
     public void setTime(int time) {
         this.time = time;
         this.timeInitial = System.currentTimeMillis();

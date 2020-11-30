@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package framework.problem;
 
 import java.util.Random;
 
 /**
  *
- * @author jesimar
+ * @author Jesimar da Silva Arantes
  */
 public class IndividualMimic {   
     

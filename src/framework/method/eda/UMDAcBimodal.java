@@ -33,7 +33,7 @@ public class UMDAcBimodal {
     private void generate() {
         System.out.println("----Begin Generate----");
         for (int i = 0; i < SIZE_POP; i++) {
-            pop[i] = new IndividualC();
+            pop[i] = new IndividualC(null);
             pop[i].initializeRND();
             System.out.println(pop[i].toString());
         }
@@ -67,8 +67,8 @@ public class UMDAcBimodal {
         double sumMean1 = 0;
         int n1 = 0;
         for (int j = 0; j < SIZE_SUB_POP; j++) {
-            if (subPop[j].value[i] < subPop[j].INTER_VALUE){
-                sumMean1 += subPop[j].value[i];
+            if (subPop[j].gene[i] < subPop[j].INTER_VALUE){
+                sumMean1 += subPop[j].gene[i];
                 n1++;
             }
         }
@@ -81,8 +81,8 @@ public class UMDAcBimodal {
         double sumMean2 = 0;
         int n2 = 0;
         for (int j = 0; j < SIZE_SUB_POP; j++) {
-            if (subPop[j].value[i] >= subPop[j].INTER_VALUE){
-                sumMean2 += subPop[j].value[i];
+            if (subPop[j].gene[i] >= subPop[j].INTER_VALUE){
+                sumMean2 += subPop[j].gene[i];
                 n2++;
             }
         }
@@ -97,8 +97,8 @@ public class UMDAcBimodal {
         double sumStdDev1 = 0;
         int n1 = 0;
         for (int j = 0; j < SIZE_SUB_POP; j++) {
-            if (subPop[j].value[i] < subPop[j].INTER_VALUE){
-                sumStdDev1 += Math.pow(subPop[j].value[i] - mean[0][i], 2.0);
+            if (subPop[j].gene[i] < subPop[j].INTER_VALUE){
+                sumStdDev1 += Math.pow(subPop[j].gene[i] - mean[0][i], 2.0);
                 n1++;
             }
         }
@@ -111,8 +111,8 @@ public class UMDAcBimodal {
         double sumStdDev2 = 0;
         int n2 = 0;
         for (int j = 0; j < SIZE_SUB_POP; j++) {
-            if (subPop[j].value[i] >= subPop[j].INTER_VALUE){
-                sumStdDev2 += Math.pow(subPop[j].value[i] - mean[1][i], 2.0);
+            if (subPop[j].gene[i] >= subPop[j].INTER_VALUE){
+                sumStdDev2 += Math.pow(subPop[j].gene[i] - mean[1][i], 2.0);
                 n2++;
             }
         }
@@ -149,7 +149,7 @@ public class UMDAcBimodal {
     private void sample() {
         System.out.println("\n---Begin Sample---");
         for (int i = 0; i < SIZE_POP; i++) {
-            pop[i] = new IndividualC();
+            pop[i] = new IndividualC(null);
             pop[i].sampleBiModal(mean, stdDev);
             System.out.println(pop[i].toString());
         }

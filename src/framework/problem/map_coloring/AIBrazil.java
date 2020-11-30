@@ -5,7 +5,7 @@
  */
 package framework.problem.map_coloring;
 
-import framework.problem.Status;
+import framework.problem.struct.Status;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;

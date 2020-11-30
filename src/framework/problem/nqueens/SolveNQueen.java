@@ -6,8 +6,8 @@
 package framework.problem.nqueens;
 
 import framework.problem.Board;
-import framework.problem.Status;
-import framework.problem.TypeSearch;
+import framework.problem.struct.Status;
+import framework.problem.struct.TypeSearch;
 
 
 /**

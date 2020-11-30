@@ -32,7 +32,7 @@ public class UMDAc {
     private void generate() {
         System.out.println("----Begin Generate----");
         for (int i = 0; i < SIZE_POP; i++) {
-            pop[i] = new IndividualC();
+            pop[i] = new IndividualC(null);
             pop[i].initializeRND();
             System.out.println(pop[i].toString());
         }
@@ -65,7 +65,7 @@ public class UMDAc {
     private void mean(int i) {
         double sumMean = 0;
         for (int j = 0; j < SIZE_SUB_POP; j++) {
-            sumMean += subPop[j].value[i];
+            sumMean += subPop[j].gene[i];
         }
         mean[i] = sumMean / SIZE_SUB_POP;
     }
@@ -73,7 +73,7 @@ public class UMDAc {
     private void stdDev(int i) {
         double sumStdDev = 0;
         for (int j = 0; j < SIZE_SUB_POP; j++) {
-            sumStdDev += Math.pow(subPop[j].value[i] - mean[i], 2.0);
+            sumStdDev += Math.pow(subPop[j].gene[i] - mean[i], 2.0);
         }
         stdDev[i] = Math.sqrt(sumStdDev / SIZE_SUB_POP);
     }
@@ -92,7 +92,7 @@ public class UMDAc {
     private void sample() {
         System.out.println("---Begin Sample---");
         for (int i = 0; i < SIZE_POP; i++) {
-            pop[i] = new IndividualC();
+            pop[i] = new IndividualC(null);
             pop[i].sampleMonoModal(mean, stdDev);
             System.out.println(pop[i].toString());
         }

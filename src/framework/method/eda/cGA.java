@@ -1,26 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package framework.method.eda;
 
-import framework.problem.IndividualB;
+import framework.problem.IndividualBinary;
+import framework.problem.struct.TypeProblemSolved;
 import framework.util.IO;
 import java.util.Random;
 
 /**
  *
- * @author jesimar
+ * @author Jesimar S. Arantes
  */
 public class cGA {
     
     private final Random rnd = new Random();
     private final int N = 50;//Precisão e velocidade do ajuste da probabilidade
     
-    private IndividualB indWinner = new IndividualB();
-    private IndividualB indLoser = new IndividualB();
+    private final TypeProblemSolved typeProblem = TypeProblemSolved.ONE_MAX;
+    private IndividualBinary indWinner = new IndividualBinary(typeProblem);
+    private IndividualBinary indLoser = new IndividualBinary(typeProblem);
     
     public cGA(){
         
@@ -32,15 +28,15 @@ public class cGA {
         }
     }
     
-    private IndividualB generate(Double probability[]){
-        IndividualB ind = new IndividualB();
-        for (int i = 0 ; i < ind.value.length; i++){
-            ind.value[i] = rnd.nextDouble() < probability[i] ? 1 : 0;
+    private IndividualBinary generate(Double probability[]){
+        IndividualBinary ind = new IndividualBinary(typeProblem);
+        for (int i = 0 ; i < ind.gene.length; i++){
+            ind.gene[i] = rnd.nextDouble() < probability[i] ? 1 : 0;
         }
         return ind;
     }
     
-    private void compete(IndividualB indA, IndividualB indB){
+    private void compete(IndividualBinary indA, IndividualBinary indB){
         if (indA.evaluate() > indB.evaluate()){
             indWinner = indA;
             indLoser = indB;
@@ -52,8 +48,8 @@ public class cGA {
     
     private void updateProbability(Double probability[]){
         for (int i = 0; i < probability.length; i++){
-            if (indWinner.value[i] != indLoser.value[i]){
-                if (indWinner.value[i] == 1){
+            if (indWinner.gene[i] != indLoser.gene[i]){
+                if (indWinner.gene[i] == 1){
                     probability[i] += 1.0/N;
                 }else{
                     probability[i] -= 1.0/N;
@@ -72,17 +68,17 @@ public class cGA {
     }
     
     public void exec(){
-        Double probability[] = new Double[IndividualB.N];
+        Double probability[] = new Double[IndividualBinary.N];
         initProbability(probability);
         System.out.print("Probability: ");
         IO.print(probability);
         int cont = 0;
         do{
-            IndividualB indA = generate(probability);        
+            IndividualBinary indA = generate(probability);        
             System.out.print("Individual A: ");
             System.out.println(indA.toString());
 
-            IndividualB indB = generate(probability);        
+            IndividualBinary indB = generate(probability);        
             System.out.print("Individual B: ");
             System.out.println(indA.toString());
 

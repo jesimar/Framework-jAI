@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package framework.method.eda;
 
-import framework.problem.IndividualB;
+import framework.problem.IndividualBinary;
+import framework.problem.struct.TypeProblemSolved;
 import framework.util.IO;
 import java.util.Random;
 
@@ -19,13 +15,15 @@ public class UMDA {
     private final int SIZE_SUB_POP = 10;
     private final int SIZE_EVALUATE = 100;
     private final int SIZE_TOURNAMENT = 6;
-    private final IndividualB pop[] = new IndividualB[SIZE_POP];
-    private final IndividualB subPop[] = new IndividualB[SIZE_SUB_POP];
-    private final Double prob[] = new Double[IndividualB.N];
+    private final IndividualBinary pop[] = new IndividualBinary[SIZE_POP];
+    private final IndividualBinary subPop[] = new IndividualBinary[SIZE_SUB_POP];
+    private final Double prob[] = new Double[IndividualBinary.N];
     private final int PROBABILITY_1 = 1;
     private final int PROBABILITY_2 = 2;
     private final int functionProb = PROBABILITY_1;
     private final Random rnd = new Random();
+    
+    private final TypeProblemSolved typeProblem = TypeProblemSolved.ONE_MAX;
 
     public UMDA() {
 
@@ -34,7 +32,7 @@ public class UMDA {
     private void generate() {
         System.out.println("----Begin Generate----");
         for (int i = 0; i < SIZE_POP; i++) {
-            pop[i] = new IndividualB();
+            pop[i] = new IndividualBinary(typeProblem);
             pop[i].initializeRND();
             System.out.println(pop[i].toString());
         }
@@ -50,7 +48,7 @@ public class UMDA {
         System.out.println("----End Select----");
     }
 
-    private IndividualB selectTournament() {
+    private IndividualBinary selectTournament() {
         int bestId = rnd.nextInt(SIZE_POP);
         double bestInd = pop[bestId].evaluate();
         for (int j = 0; j < SIZE_TOURNAMENT - 1; j++) {
@@ -65,7 +63,7 @@ public class UMDA {
     }
     
     private void initProbability(){
-        for (int i = 0; i < IndividualB.N; i++){            
+        for (int i = 0; i < IndividualBinary.N; i++){            
             prob[i] = 0.5;
         }
         System.out.print("Probability  : "); 
@@ -73,10 +71,10 @@ public class UMDA {
     }
     
     private void probability(){
-        for (int i = 0; i < IndividualB.N; i++){
+        for (int i = 0; i < IndividualBinary.N; i++){
             double sum = 0;
             for (int j = 0 ; j < SIZE_SUB_POP; j++){
-                sum += subPop[j].value[i] == 1 ? 1 : 0;
+                sum += subPop[j].gene[i] == 1 ? 1 : 0;
             }
             prob[i] = sum/SIZE_SUB_POP;
         }
@@ -88,10 +86,10 @@ public class UMDA {
      * Correção de laplace
      */
     private void probability2(){
-        for (int i = 0; i < IndividualB.N; i++){
+        for (int i = 0; i < IndividualBinary.N; i++){
             double sum = 0;
             for (int j = 0 ; j < SIZE_SUB_POP; j++){
-                sum += subPop[j].value[i];
+                sum += subPop[j].gene[i];
             }
             prob[i] = (sum + 1)/(SIZE_SUB_POP+2);
         }
@@ -102,9 +100,9 @@ public class UMDA {
     private void sample(){
         System.out.println("---Begin Sample---");
         for (int i = 0; i < SIZE_POP; i++) {
-            pop[i] = new IndividualB();
-            for (int j = 0; j < pop[i].value.length; j++){
-                pop[i].value[j] = rnd.nextDouble() < prob[j] ? 1 : 0;
+            pop[i] = new IndividualBinary(typeProblem);
+            for (int j = 0; j < pop[i].gene.length; j++){
+                pop[i].gene[j] = rnd.nextDouble() < prob[j] ? 1 : 0;
             }
             System.out.println(pop[i].toString());
         }
@@ -142,23 +140,23 @@ public class UMDA {
         System.out.println("---END---");
     }
     
-    public double averageFitness(IndividualB[] pop){
+    public double averageFitness(IndividualBinary[] pop){
         double sum = 0;
-        for (IndividualB individual : pop) {
+        for (IndividualBinary individual : pop) {
             sum += individual.fitness;
         }
         return sum/pop.length;
     }   
     
-    public double getFitnessBest(IndividualB pop[]){
+    public double getFitnessBest(IndividualBinary pop[]){
         return getBest(pop).fitness;
     }
     
-    public IndividualB getBest(IndividualB pop[]){
-        IndividualB best = pop[0];
+    public IndividualBinary getBest(IndividualBinary pop[]){
+        IndividualBinary best = pop[0];
         double fitnessBest = best.fitness;
         for (int i = 1; i < pop.length; i++){
-            IndividualB newInd = pop[i];
+            IndividualBinary newInd = pop[i];
             double fitnessNewInd = newInd.fitness;
             if (fitnessNewInd > fitnessBest){
                 best = newInd;

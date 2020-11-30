@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package framework.problem;
 
+import framework.problem.struct.TypeModal;
+import framework.problem.struct.TypeProblemSolved;
 import java.util.Random;
 
 /**
  *
- * @author jesimar
+ * @author Jesimar da Silva Arantes
  */
-public class IndividualC extends aIndividual{   
+public class IndividualC extends Individual{   
     
     private final Random rnd = new Random();
     
@@ -22,18 +18,18 @@ public class IndividualC extends aIndividual{
     public final double INTER_VALUE = 2.5;    
     
     public static final int N = 1;
-    public double value[];   
+    public double[] gene;
+    private final TypeProblemSolved typeProblem;
     
-    public double fitness = -1;
-    
-    public IndividualC(){
-        value = new double[N];
+    public IndividualC(TypeProblemSolved typeProblem){
+        this.typeProblem = typeProblem;
+        gene = new double[N];
     }    
     
     @Override
     public void initializeRND(){
         for (int i = 0; i < N; i++){
-            value[i] = INF_VALUE + (SUP_VALUE - INF_VALUE) * rnd.nextDouble();
+            gene[i] = INF_VALUE + (SUP_VALUE - INF_VALUE) * rnd.nextDouble();
         }
     }   
     
@@ -44,12 +40,12 @@ public class IndividualC extends aIndividual{
         double PHI = 1.61803398;
         if (typeModal == TypeModal.MONO_MODAL){            
             for (int i = 0; i < IndividualC.N; i++) {
-                sum += diff - Math.abs(Math.PI - value[i]);
+                sum += diff - Math.abs(Math.PI - gene[i]);
             }
         }else if (typeModal == TypeModal.BI_MODAL){
             for (int i = 0; i < IndividualC.N; i++) {
-                sum += Math.max(diff - Math.abs(Math.PI - value[i]), 
-                        diff - Math.abs(PHI - value[i]));
+                sum += Math.max(diff - Math.abs(Math.PI - gene[i]), 
+                        diff - Math.abs(PHI - gene[i]));
             }
         }
         fitness = sum;
@@ -57,17 +53,17 @@ public class IndividualC extends aIndividual{
     }
     
     @Override
-    public void copy(IndividualB ind){
-        for (int i = 0; i < value.length; i++){
-            value[i] = ind.value[i];
+    public void copy(Individual ind){
+        for (int i = 0; i < gene.length; i++){
+            gene[i] = ((IndividualC)ind).gene[i];
         }
     }
     
     @Override
     public String toString() {
         String str = "[";
-        for (int i = 0; i < value.length; i++){
-            str += value[i] + " ";
+        for (int i = 0; i < gene.length; i++){
+            str += gene[i] + " ";
         }
         str += "]";
         return str;
@@ -76,8 +72,8 @@ public class IndividualC extends aIndividual{
     public void sampleMonoModal(double mean[], double stdDev[]) {
         for (int i = 0; i < N; i++){
             do{
-                value[i] = mean[i] + stdDev[i] * rnd.nextGaussian();
-            }while(value[i] <= INF_VALUE || value[i] >= SUP_VALUE);
+                gene[i] = mean[i] + stdDev[i] * rnd.nextGaussian();
+            }while(gene[i] <= INF_VALUE || gene[i] >= SUP_VALUE);
         }
     }
     
@@ -85,14 +81,14 @@ public class IndividualC extends aIndividual{
         if (rnd.nextBoolean()){
             for (int i = 0; i < N; i++){
                 do{
-                    value[i] = mean[0][i] + stdDev[0][i] * rnd.nextGaussian();
-                }while(value[i] <= INF_VALUE || value[i] >= SUP_VALUE);
+                    gene[i] = mean[0][i] + stdDev[0][i] * rnd.nextGaussian();
+                }while(gene[i] <= INF_VALUE || gene[i] >= SUP_VALUE);
             }
         }else{
             for (int i = 0; i < N; i++){
                 do{
-                    value[i] = mean[1][i] + stdDev[1][i] * rnd.nextGaussian();
-                }while(value[i] <= INF_VALUE || value[i] >= SUP_VALUE);
+                    gene[i] = mean[1][i] + stdDev[1][i] * rnd.nextGaussian();
+                }while(gene[i] <= INF_VALUE || gene[i] >= SUP_VALUE);
             }
         }
     }

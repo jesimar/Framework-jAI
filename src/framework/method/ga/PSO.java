@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package framework.method.ga;
 
-import framework.problem.IndividualB;
+import framework.problem.IndividualBinary;
+import framework.problem.struct.TypeProblemSolved;
 import java.util.Random;
 
 /**
- *
- * @author jesimar
+ * FALTA TERMINAR 
+ * @author Jesimar da Silva Arantes
  */
 public class PSO {
     
@@ -19,7 +14,9 @@ public class PSO {
     private final int SIZE_GENERATION = 10;
     private final int SIZE_TOURNAMENT = 6;
     private final Random rnd = new Random();
-    private final IndividualB pop[] = new IndividualB[SIZE_POPULATION];
+    private final IndividualBinary pop[] = new IndividualBinary[SIZE_POPULATION];
+    
+    private final TypeProblemSolved typeProblem = TypeProblemSolved.ONE_MAX;
     
     public PSO(){
         
@@ -27,12 +24,12 @@ public class PSO {
     
     private void initialize(){
         for (int j = 0; j < SIZE_POPULATION; j++){       
-            pop[j] = new IndividualB();
+            pop[j] = new IndividualBinary(typeProblem);
             pop[j].initializeRND();
         }
     }    
 
-    private IndividualB selectTournament() {
+    private IndividualBinary selectTournament() {
         int bestId = rnd.nextInt(SIZE_POPULATION);
         double bestInd = pop[bestId].evaluate();
         for (int j = 0; j < SIZE_TOURNAMENT - 1; j++) {
@@ -49,9 +46,9 @@ public class PSO {
     public void exec(){
         initialize();
         for (int i = 0; i < SIZE_GENERATION; i++){
-            IndividualB ind1 = selectTournament();
-            IndividualB ind2 = selectTournament();
-            IndividualB ind3 = selectTournament();
+            IndividualBinary ind1 = selectTournament();
+            IndividualBinary ind2 = selectTournament();
+            IndividualBinary ind3 = selectTournament();
             System.out.println(ind1.toString() + "   eval: " + ind1.evaluate());
             System.out.println(ind2.toString() + "   eval: " + ind2.evaluate());
             System.out.println(ind3.toString() + "   eval: " + ind3.evaluate());

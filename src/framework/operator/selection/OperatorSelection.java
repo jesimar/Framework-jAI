@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package framework.operator.selection;
 
-import framework.problem.IndividualB;
+import framework.operator.selection.*;
+import framework.problem.Individual;
+import framework.problem.struct.TypeProblemMaxMin;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +10,11 @@ import java.util.Random;
 
 /**
  *
- * @author jesimar
+ * @author Jesimar da Silva Arantes
  */
 public class OperatorSelection {
 
-    private final IndividualB pop[];
+    private final Individual pop[];
     private int SIZE_TOURNAMENT = 4;
     private int idTour = -1;
     
@@ -32,12 +29,15 @@ public class OperatorSelection {
     private final Random rnd = new Random();
 
     private static List<Tupla> INTERVALS;
+    
+    private final TypeProblemMaxMin typeProblemMaxMin;
 
-    public OperatorSelection(IndividualB pop[]) {
+    public OperatorSelection(Individual pop[], TypeProblemMaxMin typeProblemMaxMin) {
         this.pop = pop;
+        this.typeProblemMaxMin = typeProblemMaxMin;
     }
 
-    public IndividualB select(TypeSelection typeSelection) {
+    public Individual select(TypeSelection typeSelection) {
         if (typeSelection == TypeSelection.TOURNAMENT) {
             return selectTournament();
         } else if (typeSelection == TypeSelection.TRUNCATION) {
@@ -52,39 +52,52 @@ public class OperatorSelection {
         }
         return null;
     }
-
-    public IndividualB selectTournament(int sizeTournament) {
+    
+    public Individual selectTournament(int sizeTournament) {
         SIZE_TOURNAMENT = sizeTournament;
         return selectTournament();
     }
-
-    private IndividualB selectTournament() {
+    
+    private Individual selectTournament() {
         int bestId = rnd.nextInt(pop.length);
         double bestInd = pop[bestId].fitness;
         for (int i = 0; i < SIZE_TOURNAMENT - 1; i++) {
             int newId = rnd.nextInt(pop.length);
             double newInd = pop[newId].fitness;
-            if (newInd > bestInd) {
-                bestInd = newInd;
-                bestId = newId;
+            if (typeProblemMaxMin == TypeProblemMaxMin.MAXIMIZATION){
+                if (newInd > bestInd) {
+                    bestInd = newInd;
+                    bestId = newId;
+                }
+            }else if (typeProblemMaxMin == TypeProblemMaxMin.MINIMIZATION){
+                if (newInd < bestInd) {
+                    bestInd = newInd;
+                    bestId = newId;
+                }
             }
         }
         return pop[bestId];
     }
-
-    public IndividualB selectTruncation(double sizeTruncation) {
+    
+    public Individual selectTruncation(double sizeTruncation) {
         SIZE_TRUNCATION = sizeTruncation;
         return selectTruncation();
     }
     
-    private IndividualB selectTruncation() {
+    private Individual selectTruncation() {
         Arrays.sort(pop);
         int value = (int) (SIZE_TRUNCATION * pop.length / 100.0);
-        int idInd = rnd.nextInt(value) + 1;
-        return pop[pop.length - idInd];
+        int idInd = rnd.nextInt(value);
+        int bestId = 0;
+        if (typeProblemMaxMin == TypeProblemMaxMin.MAXIMIZATION){
+            bestId = pop.length - idInd + 1;
+        }else if (typeProblemMaxMin == TypeProblemMaxMin.MINIMIZATION){
+            bestId = idInd;
+        }
+        return pop[bestId];
     }        
     
-    private IndividualB selectProportional() {
+    private Individual selectProportional() {
         Arrays.sort(pop);
         int fitnessTotal = 0;
         for (int i = 0; i < pop.length; i++) {
@@ -100,18 +113,23 @@ public class OperatorSelection {
         return pop[i];
     }
 
-    public IndividualB selectTouroCruzador() {
+    public Individual selectTouroCruzador() {
         idTour = -1;
         Arrays.sort(pop);
-        return pop[pop.length - 1];
+        if (typeProblemMaxMin == TypeProblemMaxMin.MAXIMIZATION){
+            return pop[pop.length - 1];
+        }else if (typeProblemMaxMin == TypeProblemMaxMin.MINIMIZATION){
+            return pop[0];
+        }
+        return null;
     }
 
-    private IndividualB selectTouroCruzador(int i) {
+    private Individual selectTouroCruzador(int i) {
         Arrays.sort(pop);
         return pop[i];
     }
 
-    private IndividualB selectLinearClassification() {
+    private Individual selectLinearClassification() {
         List<Tupla> inters = getLinearClassificationIntervals(pop.length);        
         Arrays.sort(pop);
         double val = rnd.nextDouble();
@@ -154,7 +172,7 @@ public class OperatorSelection {
 
         @Override
         public int compareTo(Tupla o) {
-            return new Double(begin).compareTo(new Double(o.begin));
+            return new Double(begin).compareTo(o.begin);
         }
     }
 }

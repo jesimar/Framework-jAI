@@ -5,8 +5,8 @@
  */
 package framework.problem.map_coloring;
 
-import framework.problem.Status;
-import framework.problem.TypeSearch;
+import framework.problem.struct.Status;
+import framework.problem.struct.TypeSearch;
 import java.util.List;
 
 /**

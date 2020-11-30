@@ -6,7 +6,7 @@
 package framework.problem.nqueens;
 
 import framework.problem.Board;
-import framework.problem.Status;
+import framework.problem.struct.Status;
 import framework.problem.cannibals.SolveCannibals;
 import java.util.LinkedList;
 import java.util.List;

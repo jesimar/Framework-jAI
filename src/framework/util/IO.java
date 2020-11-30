@@ -13,9 +13,9 @@ public class IO {
         System.out.println();
     }
     
-    public static void print(double vet[]){
-        for (double vector : vet){
-            System.out.print(String.format("%.2f ", vector));
+    public static void print(double vector[]){
+        for (double vet : vector){
+            System.out.print(String.format("%.2f ", vet));
         }
         System.out.println();
     }

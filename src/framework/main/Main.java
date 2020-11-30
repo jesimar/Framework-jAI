@@ -2,13 +2,15 @@ package framework.main;
 
 import framework.method.eda.UMDA;
 import framework.method.eda.UMDAc;
+import framework.method.eda.UMDAcBimodal;
 import framework.method.eda.cGA;
 import framework.method.ga.AGsr;
-import framework.method.ga.DE_b;
-import framework.method.ga.DE_c;
+import framework.method.ga.AGsrMultiCros;
+import framework.method.ga.DE;
 import framework.method.ga.sGA;
-import framework.method.get.GerarETestar;
-import framework.method.grasp.Grasp;
+import framework.method.ga.PSO;
+import framework.method.heuristics.GerarETestar;
+import framework.method.heuristics.Grasp;
 import framework.problem.cannibals.SolveCannibals;
 import framework.problem.kmeans.Kmeans;
 import framework.problem.map_coloring.SolveMap;
@@ -25,7 +27,7 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        SolveNQueen solveQueen = new SolveNQueen();
+//        SolveNQueen solveQueen = new SolveNQueen();
         
 //        SolveCannibals solveCannibals = new SolveCannibals();
         
@@ -36,12 +38,30 @@ public class Main {
 //        kmeans.exec();
 //        kmeans.printData();
         
+        //Avaliado
 //        GerarETestar gerar = new GerarETestar();
 //        gerar.exec();
         
+        //Avaliado
 //        Grasp grasp = new Grasp(); 
 //        grasp.exec();
         
+        //Avaliado
+//        AGsr agsr = new AGsr();
+//        agsr.exec();
+        
+        //Avaliado
+        sGA sGA = new sGA();
+        sGA.exec();
+        
+        //Avaliado
+//        AGsrMultiCros agsrMC = new AGsrMultiCros();
+//        agsrMC.exec();
+        
+        //Avaliado
+//        DE de = new DE();
+//        de.exec();
+
 //        cGA cga = new cGA();
 //        cga.exec();      
         
@@ -57,30 +77,13 @@ public class Main {
         //Não esta muito bom
 //        MIMICcG mimic = new MIMICcG();
 //        mimic.exec();
-        
-//        AGsr agsr = new AGsr();
-//        agsr.exec();
-        
-//        sGA sGA = new sGA();
-//        sGA.exec();
-        
-        //Não esta muito bom
-//        AGsrMultiCros agsrMC = new AGsrMultiCros();
-//        agsrMC.exec();
-                
-        //Não terminado
-//        EcGA ecga = new EcGA();
-//        ecga.exec();
-                
-//        DE_b de_b = new DE_b();
-//        de_b.exec();
-        
-//        DE_c de_c = new DE_c();
-//        de_c.exec();
-        
+
         //Não terminado
 //        PSO pso = new PSO();
 //        pso.exec();
-        
+
+        //Não terminado
+//        EcGA ecga = new EcGA();
+//        ecga.exec();          
     }
 }

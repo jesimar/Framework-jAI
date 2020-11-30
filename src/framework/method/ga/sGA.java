@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package framework.method.ga;
 
-import framework.problem.IndividualB;
 import framework.operator.initialization.TypeInitialization;
 import framework.operator.crossover.OperatorCrossover;
 import framework.operator.selection.TypeSelection;
@@ -15,19 +8,23 @@ import framework.operator.crossover.TypeCrossover;
 import framework.operator.mutation.OperatorMutation;
 import framework.operator.mutation.TypeMutation;
 import framework.operator.selection.OperatorSelection;
+import framework.problem.Individual;
+import framework.problem.struct.TypeProblemMaxMin;
+import framework.problem.struct.TypeProblemSolved;
+import framework.problem.struct.TypeRepresentation;
 
 /**
  * AGsr - Algoritmo Genetico Seleto Recombinativo.
- * @author jesimar
+ * @author Jesimar da Silva Arantes
  */
 public class sGA {
     
-    private final int SIZE_POPULATION = 100;  
+    private final int SIZE_POPULATION = 1000;  
     private final int SIZE_GENERATION = 50;
     
-    private final IndividualB pop[] = new IndividualB[SIZE_POPULATION]; 
-    private final IndividualB popAux[] = new IndividualB[SIZE_POPULATION]; 
-                
+    private final Individual pop[] = new Individual[SIZE_POPULATION]; 
+    private final Individual popAux[] = new Individual[SIZE_POPULATION]; 
+    
     private final OperatorSelection opSelection;
     private final OperatorInitialization opInitialization;
     private final OperatorCrossover opCrossover;
@@ -38,11 +35,15 @@ public class sGA {
     private final TypeCrossover typeCrossover = TypeCrossover.UNIFORM;
     private final TypeMutation typeMutation = TypeMutation.UNIFORM;
     
+    private final TypeProblemSolved typeProblem = TypeProblemSolved.DE;
+    private final TypeProblemMaxMin typeProblemMaxMin = TypeProblemMaxMin.MAXIMIZATION;
+    private final TypeRepresentation typeRepresentation = TypeRepresentation.CONTINUOUS;
+        
     public sGA(){
-        opSelection = new OperatorSelection(pop);
-        opInitialization = new OperatorInitialization(pop);
-        opCrossover = new OperatorCrossover();
-        opMutation = new OperatorMutation();
+        opSelection = new OperatorSelection(pop, typeProblemMaxMin);
+        opInitialization = new OperatorInitialization(pop, typeProblem, typeRepresentation);
+        opCrossover = new OperatorCrossover(typeProblem, typeRepresentation);
+        opMutation = new OperatorMutation(typeRepresentation);
     }  
     
     public void exec(){
@@ -51,12 +52,12 @@ public class sGA {
         for (int i = 0; i < pop.length; i++){
             pop[i].evaluate();
         }
-        printGeneration(generation);
+        //printGeneration(generation);
         while (generation < SIZE_GENERATION){
             for (int i = 0; i < pop.length; i++){ 
-                IndividualB indPai1 = opSelection.select(typeSelection);
-                IndividualB indPai2 = opSelection.select(typeSelection);
-                IndividualB indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
+                Individual indPai1 = opSelection.select(typeSelection);
+                Individual indPai2 = opSelection.select(typeSelection);
+                Individual indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
                 opMutation.mutation(indChild, typeMutation);
                 indChild.evaluate();
                 popAux[i] = indChild;
@@ -65,31 +66,39 @@ public class sGA {
                 pop[i] = popAux[i];
             }
             generation++;
-            printGeneration(generation);
+            //printGeneration(generation);
         }
+        printGeneration(generation);
     }
    
-    public double averageFitness(IndividualB[] pop){
+    public double averageFitness(Individual[] pop){
         double sum = 0;
-        for (IndividualB individual : pop) {
+        for (Individual individual : pop) {
             sum += individual.fitness;
         }
         return sum/pop.length;
     }   
     
-    public double getFitnessBest(IndividualB pop[]){
-        return getBest(pop).fitness;
+    public double getFitnessBest(Individual pop[]){
+        return getBestIndividual(pop).fitness;
     }
     
-    public IndividualB getBest(IndividualB pop[]){
-        IndividualB best = pop[0];
+    public Individual getBestIndividual(Individual pop[]){
+        Individual best = pop[0];
         double fitnessBest = best.fitness;
         for (int i = 1; i < pop.length; i++){
-            IndividualB newInd = pop[i];
+            Individual newInd = pop[i];
             double fitnessNewInd = newInd.fitness;
-            if (fitnessNewInd > fitnessBest){
-                best = newInd;
-                fitnessBest = fitnessNewInd;
+            if (typeProblemMaxMin == TypeProblemMaxMin.MAXIMIZATION){
+                if (fitnessNewInd > fitnessBest){
+                    best = newInd;
+                    fitnessBest = fitnessNewInd;
+                }
+            }else if (typeProblemMaxMin == TypeProblemMaxMin.MINIMIZATION){
+                if (fitnessNewInd < fitnessBest){
+                    best = newInd;
+                    fitnessBest = fitnessNewInd;
+                }
             }
         }
         return best;
@@ -100,7 +109,7 @@ public class sGA {
         for (int i = 0; i < pop.length; i++){                        
             System.out.println(pop[i].toString() + " fitness: " + pop[i].fitness);            
         }        
-        System.out.println("Best Individual: " + getBest(pop));        
+        System.out.println("Best Individual: " + getBestIndividual(pop));        
         System.out.println("Best Fitness   : " + getFitnessBest(pop));
         System.out.println("Media Fitness: " + averageFitness(pop));
     } 

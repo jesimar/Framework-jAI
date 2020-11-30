@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package framework.method.eda;
 
-import framework.problem.IndividualB;
+import framework.problem.IndividualBinary;
+import framework.problem.struct.TypeProblemSolved;
 import java.util.Random;
 
 /**
- *
- * @author jesimar
+ * FALTA TERMINAR 
+ * @author Jesimar da Silva Arantes
  */
 public class EcGA {
     
@@ -21,7 +16,9 @@ public class EcGA {
     private final int S = 3;//tamanho do torneio 
     private final double rateCrossover = 0.8;    
     
-    private final IndividualB pop[] = new IndividualB[N];
+    private final IndividualBinary pop[] = new IndividualBinary[N];
+    
+    private final TypeProblemSolved typeProblem = TypeProblemSolved.ONE_MAX;
     
     public EcGA(){
         
@@ -33,12 +30,12 @@ public class EcGA {
     
     private void initialize(){
         for (int i = 0 ; i < N; i++){
-            pop[i] = new IndividualB();
+            pop[i] = new IndividualBinary(typeProblem);
             pop[i].initializeRND();
         }
     }
     
-    private double evaluate(IndividualB ind){        
+    private double evaluate(IndividualBinary ind){        
         return ind.evaluate();
     }
     

@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package framework.method.ga;
 
-import framework.problem.IndividualB;
-import framework.problem.TypeProblem;
+import framework.problem.struct.TypeProblemSolved;
 import framework.operator.stop.TypeStop;
 import framework.operator.stop.Stop;
 import framework.operator.initialization.TypeInitialization;
@@ -16,36 +9,42 @@ import framework.operator.selection.TypeSelection;
 import framework.operator.initialization.OperatorInitialization;
 import framework.operator.crossover.TypeCrossover;
 import framework.operator.selection.OperatorSelection;
+import framework.problem.Individual;
+import framework.problem.struct.TypeProblemMaxMin;
+import framework.problem.struct.TypeRepresentation;
 
 /**
  * AGsr - Algoritmo Genetico Seleto Recombinativo.
- * @author jesimar
+ * @author Jesimar da Silva Arantes
  */
 public class AGsrTestes {
     private final int SIZE_POPULATION = 320;    
     
-    private final IndividualB pop[] = new IndividualB[SIZE_POPULATION]; 
-    private final IndividualB popAux[] = new IndividualB[SIZE_POPULATION]; 
+    private final Individual pop[] = new Individual[SIZE_POPULATION]; 
+    private final Individual popAux[] = new Individual[SIZE_POPULATION]; 
             
     private final Stop stop;
     private final OperatorInitialization opInitialization;
     private final OperatorSelection opSelection;
     private final OperatorCrossover opCrossover;
     
-    private final TypeProblem typeProblem = TypeProblem.ONE_MAX;
     private final TypeStop typeStop = TypeStop.NUMBER_GENERATION;
     private final TypeInitialization typeInitialization = TypeInitialization.RANDOM;
     private final TypeSelection typeSelection = TypeSelection.TOURNAMENT;
     private final TypeCrossover typeCrossover = TypeCrossover.UNIFORM;
     
+    private final TypeProblemSolved typeProblem = TypeProblemSolved.ONE_MAX;
+    private final TypeProblemMaxMin typeProblemMaxMin = TypeProblemMaxMin.MAXIMIZATION;
+    private final TypeRepresentation typeRepresentation = TypeRepresentation.BINARY;
+        
     public AGsrTestes(){
         stop = new Stop(typeStop);
         stop.setNumberGeneration(30);
 //        stop.setNumberEvaluation(1000);
 //        stop.setTime(4);
-        opInitialization = new OperatorInitialization(pop);
-        opSelection = new OperatorSelection(pop);
-        opCrossover = new OperatorCrossover();
+        opInitialization = new OperatorInitialization(pop, typeProblem, typeRepresentation);
+        opSelection = new OperatorSelection(pop, typeProblemMaxMin);
+        opCrossover = new OperatorCrossover(typeProblem, typeRepresentation);
     }  
     
     public void exec(){//AGsr   
@@ -57,9 +56,9 @@ public class AGsrTestes {
         printGeneration(generation);
         while (!stop.end()){            
             for (int i = 0; i < pop.length; i++){ 
-                IndividualB indPai1 = opSelection.select(typeSelection);
-                IndividualB indPai2 = opSelection.select(typeSelection);
-                IndividualB indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
+                Individual indPai1 = opSelection.select(typeSelection);
+                Individual indPai2 = opSelection.select(typeSelection);
+                Individual indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
                 indChild.evaluate();
                 popAux[i] = indChild;
             } 
@@ -79,10 +78,10 @@ public class AGsrTestes {
         }        
         printGeneration(generation);
         while (!stop.end()){
-            IndividualB indPai1 = opSelection.selectTouroCruzador();
+            Individual indPai1 = opSelection.selectTouroCruzador();
             for (int i = 0; i < pop.length; i++){                
-                IndividualB indPai2 = opSelection.select(typeSelection);
-                IndividualB indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
+                Individual indPai2 = opSelection.select(typeSelection);
+                Individual indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
                 indChild.evaluate();
                 popAux[i] = indChild;
             } 
@@ -104,9 +103,9 @@ public class AGsrTestes {
         int sizeTournament = 2;
         while (generation < 10){
             for (int i = 0; i < pop.length; i++){
-                IndividualB indPai1 = opSelection.selectTournament(sizeTournament);
-                IndividualB indPai2 = opSelection.selectTournament(sizeTournament);
-                IndividualB indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
+                Individual indPai1 = opSelection.selectTournament(sizeTournament);
+                Individual indPai2 = opSelection.selectTournament(sizeTournament);
+                Individual indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
                 indChild.evaluate();
                 popAux[i] = indChild;
             }
@@ -126,9 +125,9 @@ public class AGsrTestes {
         double sizeTruncation = 50.00;
         while (generation < 7){
             for (int i = 0; i < pop.length; i++){
-                IndividualB indPai1 = opSelection.selectTruncation(sizeTruncation);
-                IndividualB indPai2 = opSelection.selectTruncation(sizeTruncation);
-                IndividualB indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
+                Individual indPai1 = opSelection.selectTruncation(sizeTruncation);
+                Individual indPai2 = opSelection.selectTruncation(sizeTruncation);
+                Individual indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
                 indChild.evaluate();
                 popAux[i] = indChild;
             }
@@ -158,9 +157,9 @@ public class AGsrTestes {
         double sizeTruncation = 50.00;
         while (generation < 15){
             for (int i = 0; i < pop.length; i++){
-                IndividualB indPai1 = opSelection.selectTruncation(sizeTruncation);
-                IndividualB indPai2 = opSelection.selectTruncation(sizeTruncation);
-                IndividualB indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
+                Individual indPai1 = opSelection.selectTruncation(sizeTruncation);
+                Individual indPai2 = opSelection.selectTruncation(sizeTruncation);
+                Individual indChild = opCrossover.crossover(indPai1, indPai2, typeCrossover);
                 indChild.evaluate();
                 popAux[i] = indChild;
             }
@@ -196,15 +195,15 @@ public class AGsrTestes {
         }
     }
     
-    public double getFitnessBest(TypeProblem typeProblem, IndividualB pop[]){
+    public double getFitnessBest(TypeProblemSolved typeProblem, Individual pop[]){
         return getBest(typeProblem, pop).fitness;
     }
     
-    public IndividualB getBest(TypeProblem typeProblem, IndividualB pop[]){
-        IndividualB best = pop[0];
+    public Individual getBest(TypeProblemSolved typeProblem, Individual pop[]){
+        Individual best = pop[0];
         double fitnessBest = best.fitness;
         for (int i = 1; i < pop.length; i++){
-            IndividualB newInd = pop[i];
+            Individual newInd = pop[i];
             double fitnessNewInd = newInd.fitness;
             if (fitnessNewInd > fitnessBest){
                 best = newInd;
@@ -214,9 +213,9 @@ public class AGsrTestes {
         return best;
     }
    
-    public double averageFitness(IndividualB[] pop){
+    public double averageFitness(Individual[] pop){
         double sum = 0;
-        for (IndividualB individual : pop) {
+        for (Individual individual : pop) {
             sum += individual.fitness;
         }
         return sum/pop.length;
