@@ -13,15 +13,15 @@ Métodos Evolutivos:
 
 * Algoritmo Genético Padrão (sGA)
 * Algoritmo Genético Seleto Recombinativo (AGsr)
-* Algoritmo Genético Seleto Recombinativo com Múltiplos Pais. (AGsrMP)
+* Algoritmo Genético Seleto Recombinativo com Múltiplos Pais (AGsrMP)
 * Evolução Diferencial (DE)
 
 Algoritmos de Estimação da Distribuição:
 
-* cGA (Algoritmo Genético Compacto)
-* UMDA
-* UMDAc
-* UMDAcBimodal
+* Algoritmo Genético Compacto (cGA)
+* Univariate Marginal Distribution Algorithm (UMDA)
+* Univariate Marginal Distribution Algorithm com domínio contínuo (UMDAc)
+* Univariate Marginal Distribution Algorithm com domínio contínuo Bimodal (UMDAcBimodal)
 
 Métodos de Busca: 
 
