@@ -1,8 +1,8 @@
 package framework.operator.mutation;
 
-import framework.problem.Individual;
-import framework.problem.IndividualBinary;
-import framework.problem.IndividualContinuous;
+import framework.problem.otimization.Individual;
+import framework.problem.otimization.IndividualBinary;
+import framework.problem.otimization.IndividualContinuous;
 import framework.problem.struct.TypeRepresentation;
 import java.util.Random;
 

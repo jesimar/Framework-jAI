@@ -1,4 +1,4 @@
-package framework.problem;
+package framework.problem.otimization;
 
 import java.util.Random;
 

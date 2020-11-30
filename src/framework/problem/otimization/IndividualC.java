@@ -1,4 +1,4 @@
-package framework.problem;
+package framework.problem.otimization;
 
 import framework.problem.struct.TypeModal;
 import framework.problem.struct.TypeProblemSolved;

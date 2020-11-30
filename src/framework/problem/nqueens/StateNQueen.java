@@ -5,8 +5,6 @@
  */
 package framework.problem.nqueens;
 
-import framework.problem.Board;
-
 
 /**
  *

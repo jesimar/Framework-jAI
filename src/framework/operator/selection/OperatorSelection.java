@@ -1,7 +1,7 @@
 package framework.operator.selection;
 
 import framework.operator.selection.*;
-import framework.problem.Individual;
+import framework.problem.otimization.Individual;
 import framework.problem.struct.TypeProblemMaxMin;
 import java.util.ArrayList;
 import java.util.Arrays;

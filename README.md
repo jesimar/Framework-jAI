@@ -4,15 +4,26 @@ Framework com métodos de Inteligência Artificial para resolução de problemas
 
 ## Métodos Disponíveis
 
+Métodos Heurísticos:
+
 * Gerar E Testar
 * Grasp
+
+Métodos Evolutivos:
+
+* Algoritmo Genético Padrão (sGA)
+* Algoritmo Genético Seleto Recombinativo (AGsr)
+* Algoritmo Genético Seleto Recombinativo com Múltiplos Pais. (AGsrMP)
+* Evolução Diferencial (DE)
+
+Algoritmos de Estimação da Distribuição:
+
 * cGA (Algoritmo Genético Compacto)
 * UMDA
 * UMDAc
 * UMDAcBimodal
-* AGsr (Algoritmo Genético Seleto Recombinativo)
-* sGA (Algoritmo Genético Padrão)
-* DE (Evolução Diferencial)
+
+Métodos de Busca: 
 
 * Busca em largura
 * Busca em profundidade 
@@ -21,17 +32,39 @@ Framework com métodos de Inteligência Artificial para resolução de problemas
 
 Algoritmos que preciso terminar
 
-* MIMICcG
-* AGsrMultiCros
-* EcGA      
 * PSO
+* MIMICcG
+* EcGA
 
-## Problemas Disponíveis
+## Problemas de Otimização
 
-* One Max
-* Bin Max
-* Trap
-* Senha
+Representação Binária (Inteira):
+
+* One Max (ONE_MAX)
+* Bin Max (BIN_INT)
+* Trap (TRAP)
+* Senha (SENHA)
+* 3 Deceptive (DECEPTIVE_3)
+
+Representação Contínua (Real):
+
+* ACKLEY_PROBLEM
+* ALUFFI_PENTINI_PROBLEM
+* BECKER_LAGO_PROBLEM
+* BOHACHEVSKY_1_PROBLEM
+* BOHACHEVSKY_2_PROBLEM
+* BRANIN_PROBLEM
+* CAMEL_BACK3
+* CAMEL_BACK6
+* COSINE_MIXTURE_PROBLEM
+* DEKKERS_AARTS_PROBLEM
+* DE 
+
+Representação Binária e Real:
+
+* Apostila da Tia
+
+## Outros Problemas de IA
 
 * Problema da N Rainhas
 * Problema dos Canibais (Atravessar Rio)
@@ -70,4 +103,3 @@ Algoritmos que preciso terminar
 
 * Binária 
 * Contínua
-

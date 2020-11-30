@@ -5,7 +5,6 @@
  */
 package framework.problem.nqueens;
 
-import framework.problem.Board;
 import framework.problem.struct.Status;
 import framework.problem.struct.TypeSearch;
 

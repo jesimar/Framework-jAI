@@ -6,16 +6,16 @@ import framework.operator.crossover.TypeCrossover;
 import framework.operator.initialization.OperatorInitialization;
 import framework.operator.initialization.TypeInitialization;
 import framework.operator.selection.OperatorSelection;
-import framework.problem.Individual;
+import framework.problem.otimization.Individual;
 import framework.problem.struct.TypeProblemMaxMin;
 import framework.problem.struct.TypeProblemSolved;
 import framework.problem.struct.TypeRepresentation;
 
 /**
- * AGsr - Algoritmo Genetico Seleto Recombinativo Com Multiplos pais Efetuando o crossover.
+ * AGsrMP - Algoritmo Genético Seleto Recombinativo com Múltiplos Pais.
  * @author Jesimar da Silva Arantes
  */
-public class AGsrMultiCros {
+public class AGsrMP {
     private final int SIZE_POPULATION = 1000;    
     private final int SIZE_GENERATION = 50;
     private final int SIZE_MULT_CROSSOVER = 4;
@@ -34,7 +34,7 @@ public class AGsrMultiCros {
     private final TypeProblemMaxMin typeProblemMaxMin = TypeProblemMaxMin.MAXIMIZATION;
     private final TypeRepresentation typeRepresentation = TypeRepresentation.CONTINUOUS;
         
-    public AGsrMultiCros(){
+    public AGsrMP(){
         opInitialization = new OperatorInitialization(pop, typeProblem, typeRepresentation);
         opSelection = new OperatorSelection(pop, typeProblemMaxMin);
         opMultCrossover = new OperatorMultCrossover(typeProblem, typeRepresentation);

@@ -5,7 +5,7 @@ import framework.method.eda.UMDAc;
 import framework.method.eda.UMDAcBimodal;
 import framework.method.eda.cGA;
 import framework.method.ga.AGsr;
-import framework.method.ga.AGsrMultiCros;
+import framework.method.ga.AGsrMP;
 import framework.method.ga.DE;
 import framework.method.ga.sGA;
 import framework.method.ga.PSO;

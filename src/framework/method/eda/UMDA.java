@@ -1,6 +1,6 @@
 package framework.method.eda;
 
-import framework.problem.IndividualBinary;
+import framework.problem.otimization.IndividualBinary;
 import framework.problem.struct.TypeProblemSolved;
 import framework.util.IO;
 import java.util.Random;

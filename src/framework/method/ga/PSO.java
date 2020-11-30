@@ -1,6 +1,6 @@
 package framework.method.ga;
 
-import framework.problem.IndividualBinary;
+import framework.problem.otimization.IndividualBinary;
 import framework.problem.struct.TypeProblemSolved;
 import java.util.Random;
 

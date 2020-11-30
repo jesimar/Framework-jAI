@@ -8,7 +8,7 @@ import framework.operator.crossover.TypeCrossover;
 import framework.operator.mutation.OperatorMutation;
 import framework.operator.mutation.TypeMutation;
 import framework.operator.selection.OperatorSelection;
-import framework.problem.Individual;
+import framework.problem.otimization.Individual;
 import framework.problem.struct.TypeProblemMaxMin;
 import framework.problem.struct.TypeProblemSolved;
 import framework.problem.struct.TypeRepresentation;

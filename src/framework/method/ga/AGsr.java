@@ -6,7 +6,7 @@ import framework.operator.selection.OperatorSelection;
 import framework.operator.initialization.TypeInitialization;
 import framework.operator.selection.TypeSelection;
 import framework.operator.crossover.TypeCrossover;
-import framework.problem.Individual;
+import framework.problem.otimization.Individual;
 import framework.problem.struct.TypeProblemSolved;
 import framework.problem.struct.TypeProblemMaxMin;
 import framework.problem.struct.TypeRepresentation;

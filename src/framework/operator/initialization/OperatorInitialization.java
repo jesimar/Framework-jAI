@@ -1,8 +1,8 @@
 package framework.operator.initialization;
 
-import framework.problem.IndividualBinary;
-import framework.problem.IndividualContinuous;
-import framework.problem.Individual;
+import framework.problem.otimization.IndividualBinary;
+import framework.problem.otimization.IndividualContinuous;
+import framework.problem.otimization.Individual;
 import framework.problem.struct.TypeProblemSolved;
 import framework.problem.struct.TypeRepresentation;
 

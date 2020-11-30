@@ -1,4 +1,4 @@
-package framework.problem;
+package framework.problem.otimization;
 
 import framework.operator.stop.Stop;
 import framework.problem.struct.TypeProblemSolved;

@@ -5,7 +5,7 @@
  */
 package framework.method.eda;
 
-import framework.problem.IndividualC;
+import framework.problem.otimization.IndividualC;
 import framework.util.IO;
 import java.util.Random;
 

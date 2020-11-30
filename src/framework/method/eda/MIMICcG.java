@@ -5,7 +5,7 @@
  */
 package framework.method.eda;
 
-import framework.problem.IndividualMimic;
+import framework.problem.otimization.IndividualMimic;
 import framework.util.IO;
 import java.util.Random;
 
